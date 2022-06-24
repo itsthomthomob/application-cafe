@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -18,7 +18,24 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
+# Class structure for job posting
+class JobPosting():
+    def __init__(self, jobName, jobDescription, companyName):
+        self.jobName = jobName
+        self.jobDescription = jobDescription
+        self.companyName = companyName
 
-@app.get("/", tags=["root"])
-async def read_root() -> dict:
-    return {"message": "Welcome to your todo list."}
+def CreateJobPosting(job):
+
+    company = "Amazon"
+    job = "Software Engineering Intern"
+    description = "Internship at Amazon"
+
+    job = JobPosting(job, description, company)
+    
+    return job
+
+@app.post("/LinkedInJobs")
+async def NewJob(job: JobPosting):
+    
+    return CreateJobPosting(job)

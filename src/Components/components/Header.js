@@ -13,7 +13,7 @@ export default function HomeHeader() {
             <AppBar style={{zIndex:1301}} position="relative" sx={{borderBottom: 1 }}>
                 <Toolbar>
                     <Typography variant="h5" component="div" sx={{ flexGrow: 5 }}>
-                        Thomas O'Brien
+                        Application Cafe
                     </Typography>
                 </Toolbar>
             </AppBar>
