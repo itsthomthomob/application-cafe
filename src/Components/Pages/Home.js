@@ -22,20 +22,20 @@ export default function Home() {
 
     async function RetrieveData()
     {
-        let data = {"query": "curSearch"}
+        let data = curSearch.toString();
 
         console.log(`Sending: ${curSearch}`);
 
         const url = 'http://localhost:8000/LinkedInJobs'
         const response = await fetch(url, 
             { 
-                method: "post", 
-                headers: { "Content-type": "application/json"}
-            },
-            curSearch
-            );
+                method: "POST", 
+                headers: { "Content-type": "application/json"},
+                body: JSON.stringify({ query: curSearch })
+            }
+        );
         response.then( res = await res.json() );
-        await console.log(res);
+        console.log(res);
     }
     
     return (
