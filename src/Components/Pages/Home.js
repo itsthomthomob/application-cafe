@@ -5,30 +5,48 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 
-function GetLinkedInData()
-{
-    console.log("Retrieving data...");
-}
-
-let res = "";
-
-async function RetrieveData()
-{
-    const url = 'http://127.0.0.1:8000/'
-    fetch(url).then( res = await res.json() );
-    await console.log(res);
-}
-
 export default function Home() {
+    const [curSearch, setSearch] = React.useState(String);
+
+    function setQuerySearch(e)
+    {
+        setSearch(e.target.value);
+    }
+
+    function GetLinkedInData()
+    {
+        console.log("Retrieving data...");
+    }
+
+    let res = "";
+
+    async function RetrieveData()
+    {
+        let data = {"query": "curSearch"}
+
+        console.log(`Sending: ${curSearch}`);
+
+        const url = 'http://localhost:8000/LinkedInJobs'
+        const response = await fetch(url, 
+            { 
+                method: "post", 
+                headers: { "Content-type": "application/json"}
+            },
+            curSearch
+            );
+        response.then( res = await res.json() );
+        await console.log(res);
+    }
+    
     return (
         <div>
             <Header></Header>
             <Grid sx={{width: 1/1}}>
                 <Grid item sx={{width: 1/1}}>
-                    <TextField sx={{width: 1/1}} id="filled-search" label="Search field" type="search" variant="filled"/>
+                    <TextField onChange={setQuerySearch} sx={{width: 1/1}} id="filled-search" label="Search field" type="search" variant="filled"/>
                 </Grid>
                 <Grid item sx={{mt: 2, borderBottom: 1}}>
-                    <Button sx={{ ml: 2, mb: 2}} variant="contained" onClick={ GetLinkedInData }>Load Jobs</Button>
+                    <Button sx={{ ml: 2, mb: 2}} variant="contained" onClick={ RetrieveData }>Load Jobs</Button>
                 </Grid>
             </Grid>
         </div>

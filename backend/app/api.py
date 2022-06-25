@@ -1,41 +1,42 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import Body, FastAPI, Query
+#from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from fastapi import Request
+
+from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:3000",
-    "localhost:3000"
-]
-
+origins = ["http://localhost:3000", "http://localhost"]
 
 app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"]
+   CORSMiddleware,
+    allow_origins = origins,
+    allow_credentials =True,
+    allow_methods = ["*"],
+    allow_headers= ["*"],
 )
 
 # Class structure for job posting
 class JobPosting():
-    def __init__(self, jobName, jobDescription, companyName):
-        self.jobName = jobName
-        self.jobDescription = jobDescription
-        self.companyName = companyName
+  def __init__(self, jobName, jobDescription, company):
+    self.jobName = jobName
+    self.jobDescription = jobDescription
+    self.company = company
 
-def CreateJobPosting(job):
+class QuerySearch(BaseModel):
+    query: str
 
-    company = "Amazon"
-    job = "Software Engineering Intern"
-    description = "Internship at Amazon"
+url = 'http://localhost:8000/'
 
-    job = JobPosting(job, description, company)
-    
-    return job
+def performSearch(getQuery):
+    print(getQuery)
 
 @app.post("/LinkedInJobs")
-async def NewJob(job: JobPosting):
-    
-    return CreateJobPosting(job)
+def main(request: Request):
+    # performSearch(query)
+    # newJob = JobPosting("Software Engineering Intern", "Front-end engineering", "Amazon")
+    # payload = {"job": newJob.jobName, "company": newJob.company, "description": newJob.jobDescription}
+    # response = requests.post(url, payload)
+    print(request)
+    return request
