@@ -20,17 +20,14 @@ export default function Home() {
         setSearch(e.target.value);
     }
 
-    function GetLinkedInData()
+    function RequestData()
     {
-        console.log("Retrieving data...");
+        RetrieveData();
+        PopulateJobs();
     }
-
-    let res = "";
 
     async function RetrieveData()
     {
-        let data = curSearch.toString();
-
         console.log(`Sending: ${curSearch}`);
 
         const url = 'http://localhost:8000/LinkedInJobs'
@@ -52,9 +49,14 @@ export default function Home() {
         }
     }
 
-    function PopulateJobs()
+    async function PopulateJobs()
     {
-
+        const url = 'http://localhost:8000/RequestLinkedInJobs'
+        const response = await fetch(url, 
+            { 
+                method: "GET"
+            }
+        );
     }
     
     function CreateJobPosting()
@@ -80,7 +82,7 @@ export default function Home() {
 
     function LoadSavedJobs() 
     {
-        
+
     }
 
     return (
@@ -91,7 +93,7 @@ export default function Home() {
                     <TextField onChange={setQuerySearch} sx={{width: 1/1}} id="filled-search" label="Search field" type="search" variant="filled"/>
                 </Grid>
                 <Grid item sx={{mt: 2, borderBottom: 1}}>
-                    <Button sx={{ ml: 2, mb: 2}} variant="contained" onClick={ RetrieveData }>Load Jobs</Button>
+                    <Button sx={{ ml: 2, mb: 2}} variant="contained" onClick={ RequestData }>Load Jobs</Button>
                 </Grid>
             </Grid>
             <Box sx={{m: 2}}>
