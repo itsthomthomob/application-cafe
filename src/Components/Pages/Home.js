@@ -4,9 +4,16 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 
 export default function Home() {
     const [curSearch, setSearch] = React.useState(String);
+
+    let JobList = [];
 
     function setQuerySearch(e)
     {
@@ -34,10 +41,48 @@ export default function Home() {
                 body: JSON.stringify({ query: curSearch })
             }
         );
-        response.then( res = await res.json() );
-        console.log(res);
+        console.log(response);
+        if(response.status === 200)
+        {
+            console.log("Retrieved data.");
+        }
+        else 
+        {
+            console.log("Backend error.");
+        }
+    }
+
+    function PopulateJobs()
+    {
+
     }
     
+    function CreateJobPosting()
+    {
+        const JobPost = (
+        <Box sx={{mt: 2}}>
+            <Card>
+                <CardContent>
+                    <Typography variant="h1">Job Name</Typography>
+                    <Typography variant="h2">Company</Typography>
+                    <Typography variant="p">Job Description</Typography>
+                </CardContent>
+            </Card>
+        </Box>
+        )
+        return JobPost
+    }
+
+    function LoadAppliedJobs()
+    {
+
+    }
+
+    function LoadSavedJobs() 
+    {
+        
+    }
+
     return (
         <div>
             <Header></Header>
@@ -49,6 +94,29 @@ export default function Home() {
                     <Button sx={{ ml: 2, mb: 2}} variant="contained" onClick={ RetrieveData }>Load Jobs</Button>
                 </Grid>
             </Grid>
+            <Box sx={{m: 2}}>
+                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                    <Grid item xs={4}>
+                        <Typography variant="h2" color="secondary">Unorganized</Typography>
+                        <div>
+                        { CreateJobPosting() }
+                        </div>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Typography variant="h2" color="secondary">Applied</Typography>
+                        <div>
+                        { LoadAppliedJobs() }
+                        </div>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Typography variant="h2" color="secondary">Saved</Typography>
+                        <div>
+                        { LoadSavedJobs() }
+                        </div>
+                    </Grid>
+                </Grid>
+
+            </Box>
         </div>
     );
 }

@@ -5,11 +5,16 @@
 # 06 - 23: Initialization
 # 06 - 25: Fixed CORS issue, body data was not constructed via JSON and stringify
 
-# Imports
+# File reading and writing
+import json
+from pathlib import Path
+
+# FastAPI imports
 from fastapi import Body, FastAPI, Query
 from pydantic import BaseModel
 from fastapi import Request
 
+# Middleware, FastAPI middleware does not handle CORS correctly
 from starlette.middleware.cors import CORSMiddleware
 
 # Initialize FastAPI application
@@ -26,6 +31,11 @@ app.add_middleware(
     allow_methods = ["*"],
     allow_headers= ["*"],
 )
+
+# Read API creds
+with open("creds.json") as file:
+    data = json.load(file)
+    print(data["API-Keys"])
 
 # Class structure for job posting
 class JobPosting():
@@ -46,9 +56,6 @@ def performSearch(getQuery):
 # Read incoming data from text field, return a list of jobs 
 @app.post("/LinkedInJobs")
 async def main(query: QuerySearch):
+    print("Reading data...")
     performSearch(query.query)
-    # newJob = JobPosting("Software Engineering Intern", "Front-end engineering", "Amazon")
-    # payload = {"job": newJob.jobName, "company": newJob.company, "description": newJob.jobDescription}
-    # response = requests.post(url, payload)
-    print("Test")
     return query

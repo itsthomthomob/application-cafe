@@ -23,41 +23,51 @@ const theme = createTheme({
       main: '#0A0A0A',
       dark: '#0A0A0A',
       contrastText: '#F0EFF4'
-    }
+    },
+    secondary: {
+      light: '#0A0A0A',
+      main: '#0A0A0A',
+      dark: '#0A0A0A',
+      contrastText: '#F0EFF4'
+    },
+    background: {
+      paper: '#191155'
+    },
+  
   }
 });
 
 
 theme.typography.h1 = {
-  fontWeight: '300',
-  fontSize: '64px',
+  fontWeight: '400',
+  fontSize: '32px',
   color: '#F0EFF4',
   '@media (min-width:600px)': {
-    fontSize: '48px',
+    fontSize: '32px',
   },
   [theme.breakpoints.up('md')]: {
-    fontSize: '48px',
+    fontSize: '32px',
   },
 };
 
 theme.typography.h2 = {
-  fontWeight: '300',
-  fontSize: '48px',
+  fontWeight: '400',
+  fontSize: '24px',
   color: '#F0EFF4',
   '@media (min-width:600px)': {
-    fontSize: '48px',
+    fontSize: '24px',
   },
   [theme.breakpoints.up('md')]: {
-    fontSize: '48px',
+    fontSize: '24px',
   },
 };
 
 theme.typography.h3 = {
   fontWeight: '300',
-  fontSize: '36px',
+  fontSize: '12px',
   color: '#F0EFF4',
   '@media (min-width:600px)': {
-    fontSize: '48px',
+    fontSize: '12px',
   },
   [theme.breakpoints.up('md')]: {
     fontSize: '48px',
@@ -76,40 +86,15 @@ theme.typography.h4 = {
   },
 };
 
-theme.typography.h5 = 
-{
-  fontWeight: '200',
-  fontSize: '12px',
-  color: '#F0EFF4',
-  '@media (min-width:600px)': {
-    fontSize: '24px',
-  },
-  [theme.breakpoints.up('md')]: {
-    fontSize: '24px',
-  },
-};
-
-theme.typography.h6 = {
-  fontWeight: '200',
-  fontSize: '12px',
-  color: '#F0EFF4',
-  '@media (min-width:600px)': {
-    fontSize: '18px',
-  },
-  [theme.breakpoints.up('md')]: {
-    fontSize: '18px',
-  },
-};
-
 theme.typography.p = {
   fontWeight: '100',
-  fontSize: '10px',
+  fontSize: '12px',
   color: '#F0EFF4',
   '@media (min-width:600px)': {
     fontSize: '12px',
   },
   [theme.breakpoints.up('md')]: {
-    fontSize: '18px',
+    fontSize: '12px',
   },
 };
 
